@@ -1,10 +1,27 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
+    <title>Imageboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+
+    <h1>Imageboard</h1>
+<!-- //this container is for our Vue instance!! -->
+<div id="main">
+
+    <div v-for="element in images">
+        <img src="{{element.url}}" alt="pic">
+        <p>{{element.title}}</p>
+    </div>
+ 
+
+    
+
+</div>
+
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>

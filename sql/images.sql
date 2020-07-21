@@ -1,3 +1,6 @@
+--to run the code in terminal
+--psql imageboard -f sql/images.sql
+
 DROP TABLE IF EXISTS images;
 
 CREATE TABLE images(
