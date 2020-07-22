@@ -5,6 +5,19 @@ const db = spicedPg(
 );
 
 module.exports.getImage = () => {
-    let q = "SELECT * FROM images";
+    let q = "SELECT * FROM images ORDER BY id DESC";
     return db.query(q);
 };
+
+module.exports.addImage = (title, description, username, url) => {
+    let q =
+        "INSERT INTO images (title, username, description, url) VALUES($1, $2, $3, $4) RETURNING title, description, username, url ";
+    let params = [title, description, username, url];
+    return db.query(q, params);
+};
+
+// module.exports.addImage = function (params) {
+//     let q = `INSERT INTO images (title, description, username, url)
+//     VALUES ($1, $2, $3 ,$4 ) RETURNING title, description, username, url `;
+//     return db.query(q, params);
+// };

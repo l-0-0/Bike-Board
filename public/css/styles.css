@@ -1,3 +1,27 @@
 * {
-    background-color: tomato;
+    background-color: rgb(160, 26, 2);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    width: 300px;
+    height: 200px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    grid-gap: 1rem;
+}
+
+.card {
+    border: 2px solid black;
+    padding: 0.5rem;
+    width: 300px;
+    height: 400px;
+    object-fit: contain;
 }

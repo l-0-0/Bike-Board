@@ -6,17 +6,36 @@
 </head>
 <body>
 
-    <h1>Imageboard</h1>
-<!-- //this container is for our Vue instance!! -->
-<div id="main">
+<div class="container">
 
-    <div v-for="element in images">
-        <img src="{{element.url}}" alt="pic">
-        <p>{{element.title}}</p>
-    </div>
- 
+    <header>Imageboard</header>
+
+
 
     
+<!-- //this container is for our Vue instance!! -->
+    <div id="main" >
+            <input v-model="title" type="text" name="title" placeholder="title">
+            <input v-model="description" type="text" name="description" placeholder="description">
+            <input v-model="username" type="text" name="username" placeholder="username">
+            <input @change="handleChange" type="file" name="file" accept="image/*">
+
+            <button @click="handleClick">submit</button>
+
+        <div class="cards">
+                <div class="card" v-for="element in images">
+                    <img v-bind:src="element.url" alt="pic">
+                    <p>{{element.title}}</p>
+                </div>
+        </div>
+    
+            
+      
+
+
+    </div>
+
+    <footer>Hihi</footer>
 
 </div>
 
