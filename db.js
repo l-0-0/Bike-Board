@@ -16,8 +16,4 @@ module.exports.addImage = (title, description, username, url) => {
     return db.query(q, params);
 };
 
-// module.exports.addImage = function (params) {
-//     let q = `INSERT INTO images (title, description, username, url)
-//     VALUES ($1, $2, $3 ,$4 ) RETURNING title, description, username, url `;
-//     return db.query(q, params);
-// };
+// module.exports.

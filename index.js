@@ -9,6 +9,8 @@ app.use(express.static("public"));
 // app.use(express.static("upload"));
 app.use(express.urlencoded({ extended: false }));
 
+app.use(express.json());
+
 //----FILE UPLOAD BOILERPLATE-----//
 const multer = require("multer");
 const uidSafe = require("uid-safe");

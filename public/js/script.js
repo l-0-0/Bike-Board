@@ -7,10 +7,12 @@
             //if we put it as false, we can not see it in our if conditional
 
             images: [],
+            id: "",
             title: "",
             description: "",
             username: "",
             file: null,
+            currentImgId: null,
         }, //data ends here.
 
         mounted: function () {
@@ -55,6 +57,11 @@
                 console.log("file: ", e.target.files[0]);
                 //we want to store the file that we just selected in our data with this:
                 this.file = e.target.files[0];
+            },
+
+            openTheImage: function (id) {
+                console.log("currentImageId is: ", id);
+                this.currentImgId = id;
             },
         },
     });

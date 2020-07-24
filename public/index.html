@@ -9,10 +9,7 @@
 <div class="container">
 
     <header>Imageboard</header>
-
-
-
-    
+   
 <!-- //this container is for our Vue instance!! -->
     <div id="main" >
             <input v-model="title" type="text" name="title" placeholder="title">
@@ -23,17 +20,20 @@
             <button @click="handleClick">submit</button>
 
         <div class="cards">
-                <div class="card" v-for="element in images">
-                    <img v-bind:src="element.url" alt="pic">
-                    <p>{{element.title}}</p>
-                </div>
+            <div v-for="element in images" @click="openTheImage(element.id)" class="card" >
+            <img v-bind:src="element.url" alt="pic">
+            <p>{{element.title}}</p>
         </div>
-    
-            
-      
 
-
+        
+        <!-- <image-modal></image-modal> -->
     </div>
+   
+    <script type="text/x-template" id="image-template">
+        <div>
+            <h1>does it work?</h1>
+        </div>
+    </script>
 
     <footer>Hihi</footer>
 
@@ -41,6 +41,7 @@
 
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/image-component.js"></script>
     <script src="/js/script.js"></script>
 </body>
 </html>
