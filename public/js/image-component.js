@@ -9,9 +9,10 @@ Vue.component("image-modal", {
             imgUsername: "",
             imgDate: "",
             imgUrl: "",
-            comment: "",
+            comment: [],
+            commentDate: "",
+            username: "",
             newComment: "",
-            userComment: "",
         };
     },
 
@@ -20,15 +21,13 @@ Vue.component("image-modal", {
         axios
             .get("/imageInfo/" + this.currentImgId)
             .then(function (res) {
-                console.log("response from / images: ", res.data);
+                console.log("response from / images: ", res.data[1]);
                 self.imgTitle = res.data[0].title;
                 self.imgDescription = res.data[0].description;
                 self.imgUsername = res.data[0].username;
                 self.imgDate = res.data[0].created_at;
                 self.imgUrl = res.data[0].url;
-                // self.comments = res.data[1].comments;
-
-                // console.log("self is: ", self.title);
+                self.comment = res.data[1];
             })
             .catch((err) => {
                 console.log("error in component get: ", err);
@@ -42,16 +41,16 @@ Vue.component("image-modal", {
         submitComment: function (e) {
             console.log("submit button is working");
             var self = this;
-            // console.log("self is: ", self);
+            console.log("this.comment", this.newComment);
             e.preventDefault();
             axios
                 .post("/comment/" + this.currentImgId, {
-                    comment: this.newComment,
-                    username: this.userComment,
+                    newComment: this.newComment,
+                    username: this.username,
                 })
                 .then(function (res) {
                     console.log("response from adding comments", res.data);
-                    // self.comment.unshift(res.data);
+                    self.comment.unshift(res.data);
                 })
                 .catch((err) => {
                     console.log("error in uploading the comments: ", err);

@@ -45,15 +45,17 @@
                <p>{{imgDescription}}</p>
             </div>
             <input v-model="newComment" type="text" placeholder="Comment">
-            <input v-model="userComment" type="text" placeholder="Username">
+            <input v-model="username" type="text" placeholder="Username">
             <button @click="submitComment">Submit</button>
             
-            <p>{{newComment}}</p>
-            <!-- <div v-for="element in comments" :comment="comments" :key="comment.id"> -->
-           
-                                    <!-- <p>{{comments}}</p> -->
-            <!-- <image-modal v-if="currentImgId" :id="currentImgId" @close="closeModal"></image-modal> -->
-            <!-- </div> -->
+                
+            
+            <div v-for="element in comment" :comment="comment">
+           <p>{{element.username}}</p>
+                <p>{{element.created_at}}</p>
+                <p>{{element.comment}}</p>
+              
+            </div>
 
            
        </div>

@@ -72,13 +72,14 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 });
 
 app.get("/imageInfo/:id", (req, res) => {
+    console.log(req.body.comment);
     Promise.all([
         db.getImageInfo(req.params.id),
         db.getComments(req.params.id, req.body.comment, req.body.username),
     ])
         .then(([results1, results2]) => {
-            // console.log(results1.rows[0], results2.rows[0]);
-            res.json([results1.rows[0], results2.rows[0]]);
+            console.log("imageInfo route", results1.rows, results2.rows);
+            res.json([results1.rows[0], results2.rows]);
         })
         .catch((err) => {
             console.log("error in getting image imformation: ", err);
@@ -86,9 +87,9 @@ app.get("/imageInfo/:id", (req, res) => {
 });
 
 app.post("/comment/:id", (req, res) => {
-    db.addComment(req.params.id, req.body.comment, req.body.username)
+    db.addComment(req.params.id, req.body.newComment, req.body.username)
         .then((results) => {
-            console.log(results.rows[0]);
+            console.log("results.rows in comment", results.rows[0]);
             res.json(results.rows[0]);
         })
         .catch((err) => {

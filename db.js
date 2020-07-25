@@ -24,7 +24,7 @@ module.exports.getImageInfo = (id) => {
 
 module.exports.addComment = (id, comment, username) => {
     let q = `INSERT INTO comments (image_id, comment, username) 
-    VALUES ($1, $2, $3) RETURNING comment, username, created_at`;
+    VALUES ($1, $2, $3) RETURNING image_id, comment, username, created_at`;
     let params = [id, comment, username];
     return db.query(q, params);
 };
