@@ -15,6 +15,7 @@ app.use(express.json());
 const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
+const { promises } = require("fs");
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -67,6 +68,31 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         })
         .catch((err) => {
             console.log("error in addImage query: ", err);
+        });
+});
+
+app.get("/imageInfo/:id", (req, res) => {
+    Promise.all([
+        db.getImageInfo(req.params.id),
+        db.getComments(req.params.id, req.body.comment, req.body.username),
+    ])
+        .then(([results1, results2]) => {
+            // console.log(results1.rows[0], results2.rows[0]);
+            res.json([results1.rows[0], results2.rows[0]]);
+        })
+        .catch((err) => {
+            console.log("error in getting image imformation: ", err);
+        });
+});
+
+app.post("/comment/:id", (req, res) => {
+    db.addComment(req.params.id, req.body.comment, req.body.username)
+        .then((results) => {
+            console.log(results.rows[0]);
+            res.json(results.rows[0]);
+        })
+        .catch((err) => {
+            console.log("error in getting image imformation: ", err);
         });
 });
 

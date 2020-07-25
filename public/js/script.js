@@ -25,7 +25,7 @@
                 self.images = res.data;
 
                 // console.log("response from / images: ", res.data);
-                // console.log("self images: ", self.images);
+                // console.log("self image is: ", self.images);
             });
         },
         methods: {
@@ -54,14 +54,19 @@
 
             handleChange: function (e) {
                 //this gives us the information about the file that we just selected
-                console.log("file: ", e.target.files[0]);
+                // console.log("file: ", e.target.files[0]);
                 //we want to store the file that we just selected in our data with this:
                 this.file = e.target.files[0];
             },
 
             openTheImage: function (id) {
-                console.log("currentImageId is: ", id);
+                // console.log("currentImageId is: ", id);
                 this.currentImgId = id;
+            },
+
+            closeTheModal: function () {
+                console.log("closed");
+                this.currentImgId = null;
             },
         },
     });

@@ -21,23 +21,44 @@
 
         <div class="cards">
             <div v-for="element in images" @click="openTheImage(element.id)" class="card" >
-            <img v-bind:src="element.url" alt="pic">
-            <p>{{element.title}}</p>
+                <img v-bind:src="element.url" alt="pic">
+                <p>{{element.title}}</p>
+            </div>
         </div>
+
+        <image-modal v-if="currentImgId" :current-img-id="currentImgId" @close="closeTheModal"></image-modal>
+        
 
         
-        <!-- <image-modal></image-modal> -->
     </div>
    
-    <script type="text/x-template" id="image-template">
-        <div>
-            <h1>does it work?</h1>
-        </div>
-    </script>
-
     <footer>Hihi</footer>
 
 </div>
+
+    <script type="text/x-template" id="image-template">
+       <div>
+           <div >
+               <img :src="imgUrl" alt="imgTitle" @click="closeTheImage">
+               <h4>{{imgTitle}}</h4>
+               <p>{{imgUsername}}, {{imgDate}}</p>
+               <p>{{imgDescription}}</p>
+            </div>
+            <input v-model="newComment" type="text" placeholder="Comment">
+            <input v-model="userComment" type="text" placeholder="Username">
+            <button @click="submitComment">Submit</button>
+            
+            <p>{{newComment}}</p>
+            <!-- <div v-for="element in comments" :comment="comments" :key="comment.id"> -->
+           
+                                    <!-- <p>{{comments}}</p> -->
+            <!-- <image-modal v-if="currentImgId" :id="currentImgId" @close="closeModal"></image-modal> -->
+            <!-- </div> -->
+
+           
+       </div>
+    </script>
+
 
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
