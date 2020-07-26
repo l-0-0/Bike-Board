@@ -13,6 +13,8 @@
             username: "",
             file: null,
             currentImgId: null,
+            smallestIdScreen: "",
+            button: "1",
         }, //data ends here.
 
         mounted: function () {
@@ -23,7 +25,10 @@
             axios.get("/home").then(function (res) {
                 //response is what we get back from the server
                 self.images = res.data;
-
+                var smallestId = self.images[self.images.length - 1].id;
+                self.smallestIdScreen = smallestId;
+                console.log("last image id:", smallestId);
+                // console.log("smallestIdScreen", self.smallestIdScreen);
                 // console.log("response from / images: ", res.data);
                 // console.log("self image is: ", self.images);
             });
@@ -31,7 +36,7 @@
         methods: {
             handleClick: function (e) {
                 e.preventDefault(); // it prevent a button/ or something to do its default behaviour- hier prevents the page from reloading
-                console.log("this:", this);
+                // console.log("this:", this);
 
                 var formData = new FormData();
                 formData.append("title", this.title);
@@ -44,7 +49,7 @@
                 axios
                     .post("/upload", formData)
                     .then(function (res) {
-                        console.log("response from POST/ upload: ", res.data);
+                        // console.log("response from POST/ upload: ", res.data);
                         self.images.unshift(res.data);
                     })
                     .catch(function (err) {
@@ -60,13 +65,42 @@
             },
 
             openTheImage: function (id) {
-                // console.log("currentImageId is: ", id);
+                console.log("currentImageId is: ", id);
                 this.currentImgId = id;
             },
 
             closeTheModal: function () {
                 console.log("closed");
                 this.currentImgId = null;
+            },
+
+            moreImages: function (e) {
+                e.preventDefault();
+                var self = this;
+                // console.log("self is:", self);
+                // console.log("more button is clicked");
+
+                axios
+                    .get("/more-image/" + this.smallestIdScreen)
+                    .then(function (res) {
+                        console.log("res.data in script: ", res.data);
+                        for (var i = 0; i < res.data.length; i++) {
+                            self.images.push(res.data[i]);
+                            // console.log(res.data[i].lowestId);
+                        }
+                        self.smallestIdScreen =
+                            self.images[self.images.length - 1].id;
+                        console.log("smallestIdScreen", self.smallestIdScreen);
+                        console.log("res.data", res.data[0].lowestId);
+
+                        if (self.smallestIdScreen == res.data[0].lowestId) {
+                            self.button = null;
+                            console.log("no more image");
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("error in loading more images", err);
+                    });
             },
         },
     });

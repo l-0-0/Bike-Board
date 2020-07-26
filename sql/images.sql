@@ -1,8 +1,8 @@
 --to run the code in terminal
 --psql imageboard -f sql/images.sql
 
-DROP TABLE IF EXISTS images;
 DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS images;
 
 CREATE TABLE images(
     id SERIAL PRIMARY KEY,

@@ -26,6 +26,8 @@
             </div>
         </div>
 
+        <button v-if="button" @click="moreImages">more</button>
+        <!-- <button v-else="button = false" @click="moreImages">more</button> -->
         <image-modal v-if="currentImgId" :current-img-id="currentImgId" @close="closeTheModal"></image-modal>
         
 
@@ -37,28 +39,30 @@
 </div>
 
     <script type="text/x-template" id="image-template">
-       <div>
-           <div >
-               <img :src="imgUrl" alt="imgTitle" @click="closeTheImage">
-               <h4>{{imgTitle}}</h4>
-               <p>{{imgUsername}}, {{imgDate}}</p>
-               <p>{{imgDescription}}</p>
+       <div class="each-image">
+           <div class="inside-part">
+                <div>
+                    <img :src="imgUrl" alt="imgTitle" @click="closeTheImage">
+                    <h4>{{imgTitle}}</h4>
+                    <p>{{imgUsername}}, {{imgDate}}</p>
+                    <p>{{imgDescription}}</p>
+                    </div>
+                    <input v-model="newComment" type="text" placeholder="Comment">
+                    <input v-model="username" type="text" placeholder="Username">
+                    <button @click="submitComment">Submit</button>
+                    
+                        
+                    
+                    <div v-for="element in comment" :comment="comment">
+                        <p>{{element.username}}</p>
+                        <p>{{element.created_at}}</p>
+                        <p>{{element.comment}}</p>
+                    
+                    </div>
             </div>
-            <input v-model="newComment" type="text" placeholder="Comment">
-            <input v-model="username" type="text" placeholder="Username">
-            <button @click="submitComment">Submit</button>
-            
-                
-            
-            <div v-for="element in comment" :comment="comment">
-           <p>{{element.username}}</p>
-                <p>{{element.created_at}}</p>
-                <p>{{element.comment}}</p>
-              
-            </div>
-
+        </div>
            
-       </div>
+       
     </script>
 
 

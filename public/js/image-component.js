@@ -21,7 +21,7 @@ Vue.component("image-modal", {
         axios
             .get("/imageInfo/" + this.currentImgId)
             .then(function (res) {
-                console.log("response from / images: ", res.data[1]);
+                // console.log("response from / images: ", res.data[1]);
                 self.imgTitle = res.data[0].title;
                 self.imgDescription = res.data[0].description;
                 self.imgUsername = res.data[0].username;
@@ -41,7 +41,7 @@ Vue.component("image-modal", {
         submitComment: function (e) {
             console.log("submit button is working");
             var self = this;
-            console.log("this.comment", this.newComment);
+            // console.log("this.comment", this.newComment);
             e.preventDefault();
             axios
                 .post("/comment/" + this.currentImgId, {
@@ -49,7 +49,7 @@ Vue.component("image-modal", {
                     username: this.username,
                 })
                 .then(function (res) {
-                    console.log("response from adding comments", res.data);
+                    // console.log("response from adding comments", res.data);
                     self.comment.unshift(res.data);
                 })
                 .catch((err) => {

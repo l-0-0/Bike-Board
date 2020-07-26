@@ -1,0 +1,5 @@
+problems to fix:
+1. in the input field in comments, the comment and username, 
+stays there after posting.
+
+2. scrolling
