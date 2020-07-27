@@ -14,11 +14,13 @@
             file: null,
             currentImgId: location.hash,
             smallestIdScreen: "",
-            button: "1",
+            button: "10",
         }, //data ends here.
 
         mounted: function () {
             var self = this;
+            this.currentImgId = null;
+            location.hash = "";
             //talk to the server and make a get reuest to the server. So we have to have a route
             //named images in our index.js. like that they talk
             //it sends the request to server, if we get something back from the server .then() will run and we get console.log in our browser (here)
@@ -36,9 +38,6 @@
                 console.log("hash is changed");
                 self.currentImgId = location.hash.slice(1);
             });
-            // when modal closes we need to set the
-            //url after the hash to an empty string,
-            //also for errors (in catches).
         },
         methods: {
             handleClick: function (e) {
@@ -79,6 +78,7 @@
             closeTheModal: function () {
                 console.log("closed");
                 this.currentImgId = null;
+                location.hash = "";
             },
 
             moreImages: function (e) {

@@ -24,7 +24,7 @@
                 <a :href= "'#'+ element.id">
                     <img v-bind:src="element.url" :id="element.id" alt="pic">
                 </a>
-                
+
             <p>{{element.title}}</p>
             
             </div>
@@ -38,7 +38,7 @@
         
     </div>
    
-    <footer>Hihi</footer>
+    <footer><del>&copy;</del> copyleft 2020 - Feel free to use!</footer>
 
 </div>
 
@@ -54,6 +54,7 @@
                     <input v-model="newComment" type="text" placeholder="Comment">
                     <input v-model="username" type="text" placeholder="Username">
                     <button @click="submitComment">Submit</button>
+                    <button @click="deleteImage">delete</button>
                     
                         
                     

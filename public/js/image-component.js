@@ -35,13 +35,13 @@ Vue.component("image-modal", {
     },
 
     watch: {
-        imageChange: function () {
+        currentImgId: function () {
             var self = this;
             console.log("inside watcher");
             axios
                 .get("/imageInfo/" + this.currentImgId)
                 .then(function (res) {
-                    console.log("image id", this.currentImgId);
+                    console.log("image id", self.currentImgId);
                     // console.log("response from / images: ", res.data[1]);
                     self.imgTitle = res.data[0].title;
                     self.imgDescription = res.data[0].description;
@@ -52,6 +52,7 @@ Vue.component("image-modal", {
                 })
                 .catch((err) => {
                     console.log("error in component get in watcher: ", err);
+                    location.hash = "";
                 });
         },
     },
@@ -77,6 +78,9 @@ Vue.component("image-modal", {
                 .catch((err) => {
                     console.log("error in uploading the comments: ", err);
                 });
+        },
+        deleteImage: function (e) {
+            console.log("delete button works");
         },
     },
 });
