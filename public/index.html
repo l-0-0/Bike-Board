@@ -20,9 +20,13 @@
             <button @click="handleClick">submit</button>
 
         <div class="cards">
-            <div v-for="element in images" @click="openTheImage(element.id)" class="card" >
-                <img v-bind:src="element.url" alt="pic">
-                <p>{{element.title}}</p>
+            <div v-for="element in images" class="card" >
+                <a :href= "'#'+ element.id">
+                    <img v-bind:src="element.url" :id="element.id" alt="pic">
+                </a>
+                
+            <p>{{element.title}}</p>
+            
             </div>
         </div>
 

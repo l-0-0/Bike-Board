@@ -33,6 +33,28 @@ Vue.component("image-modal", {
                 console.log("error in component get: ", err);
             });
     },
+
+    watch: {
+        imageChange: function () {
+            var self = this;
+            console.log("inside watcher");
+            axios
+                .get("/imageInfo/" + this.currentImgId)
+                .then(function (res) {
+                    console.log("image id", this.currentImgId);
+                    // console.log("response from / images: ", res.data[1]);
+                    self.imgTitle = res.data[0].title;
+                    self.imgDescription = res.data[0].description;
+                    self.imgUsername = res.data[0].username;
+                    self.imgDate = res.data[0].created_at;
+                    self.imgUrl = res.data[0].url;
+                    self.comment = res.data[1];
+                })
+                .catch((err) => {
+                    console.log("error in component get in watcher: ", err);
+                });
+        },
+    },
     methods: {
         closeTheImage: function () {
             // console.log("clicked");

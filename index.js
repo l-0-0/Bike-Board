@@ -100,7 +100,7 @@ app.post("/comment/:id", (req, res) => {
 app.get("/more-image/:id", (req, res) => {
     db.getMoreImages(req.params.id)
         .then((results) => {
-            console.log("results in more image route", results.rows);
+            // console.log("results in more image route", results.rows);
             res.json(results.rows);
         })
         .catch((err) => {

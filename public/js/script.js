@@ -12,7 +12,7 @@
             description: "",
             username: "",
             file: null,
-            currentImgId: null,
+            currentImgId: location.hash,
             smallestIdScreen: "",
             button: "1",
         }, //data ends here.
@@ -32,6 +32,13 @@
                 // console.log("response from / images: ", res.data);
                 // console.log("self image is: ", self.images);
             });
+            window.addEventListener("hashchange", function () {
+                console.log("hash is changed");
+                self.currentImgId = location.hash.slice(1);
+            });
+            // when modal closes we need to set the
+            //url after the hash to an empty string,
+            //also for errors (in catches).
         },
         methods: {
             handleClick: function (e) {
