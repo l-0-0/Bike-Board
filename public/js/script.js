@@ -14,7 +14,7 @@
             file: null,
             currentImgId: location.hash,
             smallestIdScreen: "",
-            button: "10",
+            button: true,
         }, //data ends here.
 
         mounted: function () {
@@ -29,7 +29,7 @@
                 self.images = res.data;
                 var smallestId = self.images[self.images.length - 1].id;
                 self.smallestIdScreen = smallestId;
-                console.log("last image id:", smallestId);
+                // console.log("last image id:", smallestId);
                 // console.log("smallestIdScreen", self.smallestIdScreen);
                 // console.log("response from / images: ", res.data);
                 // console.log("self image is: ", self.images);
@@ -90,10 +90,10 @@
                 axios
                     .get("/more-image/" + this.smallestIdScreen)
                     .then(function (res) {
-                        console.log("res.data in script: ", res.data);
+                        // console.log("res.data in script: ", res.data);
                         for (var i = 0; i < res.data.length; i++) {
                             self.images.push(res.data[i]);
-                            // console.log(res.data[i].lowestId);
+                            console.log("lowest id is: ", res.data[i].lowestId);
                         }
                         self.smallestIdScreen =
                             self.images[self.images.length - 1].id;
@@ -101,13 +101,24 @@
                         console.log("res.data", res.data[0].lowestId);
 
                         if (self.smallestIdScreen == res.data[0].lowestId) {
-                            self.button = null;
+                            self.button = false;
                             console.log("no more image");
                         }
                     })
                     .catch((err) => {
                         console.log("error in loading more images", err);
                     });
+            },
+
+            deleteImage: function () {
+                var self = this;
+                console.log("deleted");
+                this.images = this.images.filter(function (image) {
+                    return image.id != self.currentImgId;
+                });
+
+                this.currentImgId = null;
+                location.hash = "";
             },
         },
     });

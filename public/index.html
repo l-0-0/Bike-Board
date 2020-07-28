@@ -3,21 +3,26 @@
 <head>
     <title>Imageboard</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 </head>
 <body>
 
 <div class="container">
 
-    <header>Imageboard</header>
+    <header>Bike __<i class="fas fa-biking"></i>__ Board</header>
    
 <!-- //this container is for our Vue instance!! -->
     <div id="main" >
+        <div class="input-field">
+
             <input v-model="title" type="text" name="title" placeholder="title">
             <input v-model="description" type="text" name="description" placeholder="description">
             <input v-model="username" type="text" name="username" placeholder="username">
-            <input @change="handleChange" type="file" name="file" accept="image/*">
+           <label for="files" id="label">select a photo<input id="files" @change="handleChange" type="file" name="file" accept="image/*">
+            </label>
 
             <button @click="handleClick">submit</button>
+        </div>
 
         <div class="cards">
             <div v-for="element in images" class="card" >
@@ -25,14 +30,15 @@
                     <img v-bind:src="element.url" :id="element.id" alt="pic">
                 </a>
 
-            <p>{{element.title}}</p>
+            <h2>{{element.title}}</h2>
+            <p>{{element.description}}</p>
             
             </div>
         </div>
 
-        <button v-if="button" @click="moreImages">more</button>
-        <!-- <button v-else="button = false" @click="moreImages">more</button> -->
-        <image-modal v-if="currentImgId" :current-img-id="currentImgId" @close="closeTheModal"></image-modal>
+        <button class="more-button" v-if="button === true" @click="moreImages">more</button>
+
+        <image-modal v-if="currentImgId" :current-img-id="currentImgId" @close="closeTheModal" @deleted="deleteImage"></image-modal>
         
 
         
@@ -43,27 +49,33 @@
 </div>
 
     <script type="text/x-template" id="image-template">
-       <div class="each-image">
+       <div class="each-modal" >
            <div class="inside-part">
-                <div>
-                    <img :src="imgUrl" alt="imgTitle" @click="closeTheImage">
-                    <h4>{{imgTitle}}</h4>
+               <div class="close-button" @click="closeTheImage"> x </div>
+                <div class="image-box">
+                    <h2>{{imgTitle}}</h2>
+                    <img :src="imgUrl" alt="imgTitle" >
                     <p>{{imgUsername}}, {{imgDate}}</p>
                     <p>{{imgDescription}}</p>
-                    </div>
-                    <input v-model="newComment" type="text" placeholder="Comment">
-                    <input v-model="username" type="text" placeholder="Username">
-                    <button @click="submitComment">Submit</button>
-                    <button @click="deleteImage">delete</button>
+                </div>
+                <div >
+                    <input class="comment-section" v-model="newComment" type="text" placeholder="Comment">
+                    <input class="comment-section" v-model="username" type="text" placeholder="Username">
+                    <button id="comment-button" @click="submitComment">Submit</button>
+                    <button id="comment-button" @click="deleteImage">delete</button>
+                </div>
+                  
                     
-                        
-                    
-                    <div v-for="element in comment" :comment="comment">
-                        <p>{{element.username}}</p>
-                        <p>{{element.created_at}}</p>
-                        <p>{{element.comment}}</p>
-                    
-                    </div>
+                        <div class="comment-container">
+
+                            
+                            <div class="show-comment" v-for="element in comment" :comment="comment">
+                                <p id="username-c">{{element.username}} - {{element.created_at}}</p>
+                                <p>"{{element.comment}}"</p>
+                               
+                                
+                            </div>
+                        </div>
             </div>
         </div>
            

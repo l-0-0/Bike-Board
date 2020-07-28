@@ -5,13 +5,13 @@ const db = spicedPg(
 );
 
 module.exports.getImage = () => {
-    let q = `SELECT * FROM images ORDER BY id DESC LIMIT 3`;
+    let q = `SELECT * FROM images ORDER BY id DESC LIMIT 10`;
     return db.query(q);
 };
 
 module.exports.addImage = (title, description, username, url) => {
     let q = `INSERT INTO images (title, username, description, url) 
-    VALUES($1, $2, $3, $4) RETURNING title, description, username, url`;
+    VALUES($1, $2, $3, $4) RETURNING *`;
     let params = [title, description, username, url];
     return db.query(q, params);
 };
@@ -36,14 +36,26 @@ module.exports.getComments = (id) => {
 };
 
 module.exports.getMoreImages = (lastId) => {
-    let q = `SELECT url, title, id, 
+    let q = `SELECT *, 
             (SELECT id FROM images
             ORDER BY id ASC
             LIMIT 1
             ) AS "lowestId" FROM images
             WHERE id < $1
             ORDER BY id DESC
-            LIMIT 3`;
+            LIMIT 10`;
     let params = [lastId];
+    return db.query(q, params);
+};
+
+module.exports.deleteComment = (imageId) => {
+    let q = `DELETE FROM comments WHERE image_id=$1`;
+    let params = [imageId];
+    return db.query(q, params);
+};
+
+module.exports.deleteTheImage = (imageId) => {
+    let q = `DELETE FROM images WHERE id=$1`;
+    let params = [imageId];
     return db.query(q, params);
 };
