@@ -31,7 +31,7 @@
                 </a>
 
             <h2>{{element.title}}</h2>
-            <p>{{element.description}}</p>
+            <!-- <p>{{element.username}}</p> -->
             
             </div>
         </div>
@@ -55,8 +55,8 @@
                 <div class="image-box">
                     <h2>{{imgTitle}}</h2>
                     <img :src="imgUrl" alt="imgTitle" >
-                    <p>{{imgUsername}}, {{imgDate}}</p>
-                    <p>{{imgDescription}}</p>
+                    <h4>>> {{imgDescription}} - {{imgDate}}</h4>
+                    <p>>> {{imgUsername}}</p>
                 </div>
                 <div >
                     <input class="comment-section" v-model="newComment" type="text" placeholder="Comment">

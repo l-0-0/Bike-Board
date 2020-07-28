@@ -29,6 +29,15 @@
                 self.images = res.data;
                 var smallestId = self.images[self.images.length - 1].id;
                 self.smallestIdScreen = smallestId;
+
+                // console.log("smallestIdScreen", self.smallestIdScreen);
+                // console.log("res.data", res.data[0].lowestId);
+
+                if (self.smallestIdScreen > res.data[0].lowestId) {
+                    self.button = true;
+                    console.log("no more image");
+                }
+
                 // console.log("last image id:", smallestId);
                 // console.log("smallestIdScreen", self.smallestIdScreen);
                 // console.log("response from / images: ", res.data);
@@ -57,6 +66,10 @@
                     .then(function (res) {
                         // console.log("response from POST/ upload: ", res.data);
                         self.images.unshift(res.data);
+                        self.title = "";
+                        self.description = "";
+
+                        self.username = "";
                     })
                     .catch(function (err) {
                         console.log("err in POST /upload: ", err);

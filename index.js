@@ -98,6 +98,7 @@ app.post("/comment/:id", (req, res) => {
 });
 
 app.get("/more-image/:id", (req, res) => {
+    console.log("id ", req.params.id);
     db.getMoreImages(req.params.id)
         .then((results) => {
             console.log("results in more image route", results.rows);
