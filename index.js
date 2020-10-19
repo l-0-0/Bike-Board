@@ -56,14 +56,11 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     //if we upload correctly, we see the image on our upload folder
     const { title, description, username } = req.body;
     const { filename } = req.file;
-    console.log("file:", req.file);
-    console.log("input:", req.body);
 
     const url = s3Url + filename;
 
     db.addImage(title, description, username, url)
         .then((results) => {
-            // console.log("results.rows:", results.rows);
             res.json(results.rows[0]);
         })
         .catch((err) => {
@@ -72,13 +69,11 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 });
 
 app.get("/imageInfo/:id", (req, res) => {
-    // console.log(req.body.comment);
     Promise.all([
         db.getImageInfo(req.params.id),
         db.getComments(req.params.id, req.body.comment, req.body.username),
     ])
         .then(([results1, results2]) => {
-            // console.log("imageInfo route", results2.rows);
             res.json([results1.rows[0], results2.rows]);
         })
         .catch((err) => {
@@ -89,7 +84,6 @@ app.get("/imageInfo/:id", (req, res) => {
 app.post("/comment/:id", (req, res) => {
     db.addComment(req.params.id, req.body.newComment, req.body.username)
         .then((results) => {
-            // console.log("results.rows in comment", results.rows[0]);
             res.json(results.rows[0]);
         })
         .catch((err) => {
@@ -98,10 +92,8 @@ app.post("/comment/:id", (req, res) => {
 });
 
 app.get("/more-image/:id", (req, res) => {
-    console.log("id ", req.params.id);
     db.getMoreImages(req.params.id)
         .then((results) => {
-            console.log("results in more image route", results.rows);
             res.json(results.rows);
         })
         .catch((err) => {
@@ -110,7 +102,6 @@ app.get("/more-image/:id", (req, res) => {
 });
 
 app.delete("/delete/:id", (req, res) => {
-    console.log(req.params.id);
     Promise.all([
         db.deleteComment(req.params.id),
         db.deleteTheImage(req.params.id),

@@ -3,9 +3,6 @@
         el: "#main",
         data: {
             name: "imageName",
-            // seen: true,
-            //if we put it as false, we can not see it in our if conditional
-
             images: [],
             id: "",
             title: "",
@@ -30,28 +27,17 @@
                 var smallestId = self.images[self.images.length - 1].id;
                 self.smallestIdScreen = smallestId;
 
-                // console.log("smallestIdScreen", self.smallestIdScreen);
-                // console.log("res.data", res.data[0].lowestId);
-
                 if (self.smallestIdScreen > res.data[0].lowestId) {
                     self.button = true;
-                    console.log("no more image");
                 }
-
-                // console.log("last image id:", smallestId);
-                // console.log("smallestIdScreen", self.smallestIdScreen);
-                // console.log("response from / images: ", res.data);
-                // console.log("self image is: ", self.images);
             });
             window.addEventListener("hashchange", function () {
-                console.log("hash is changed");
                 self.currentImgId = location.hash.slice(1);
             });
         },
         methods: {
             handleClick: function (e) {
                 e.preventDefault(); // it prevent a button/ or something to do its default behaviour- hier prevents the page from reloading
-                // console.log("this:", this);
 
                 var formData = new FormData();
                 formData.append("title", this.title);
@@ -64,7 +50,6 @@
                 axios
                     .post("/upload", formData)
                     .then(function (res) {
-                        // console.log("response from POST/ upload: ", res.data);
                         self.images.unshift(res.data);
                         self.title = "";
                         self.description = "";
@@ -78,18 +63,15 @@
 
             handleChange: function (e) {
                 //this gives us the information about the file that we just selected
-                // console.log("file: ", e.target.files[0]);
                 //we want to store the file that we just selected in our data with this:
                 this.file = e.target.files[0];
             },
 
             openTheImage: function (id) {
-                console.log("currentImageId is: ", id);
                 this.currentImgId = id;
             },
 
             closeTheModal: function () {
-                console.log("closed");
                 this.currentImgId = null;
                 location.hash = "";
             },
@@ -97,25 +79,18 @@
             moreImages: function (e) {
                 e.preventDefault();
                 var self = this;
-                // console.log("self is:", self);
-                // console.log("more button is clicked");
 
                 axios
                     .get("/more-image/" + this.smallestIdScreen)
                     .then(function (res) {
-                        // console.log("res.data in script: ", res.data);
                         for (var i = 0; i < res.data.length; i++) {
                             self.images.push(res.data[i]);
-                            console.log("lowest id is: ", res.data[i].lowestId);
                         }
                         self.smallestIdScreen =
                             self.images[self.images.length - 1].id;
-                        console.log("smallestIdScreen", self.smallestIdScreen);
-                        console.log("res.data", res.data[0].lowestId);
 
                         if (self.smallestIdScreen == res.data[0].lowestId) {
                             self.button = false;
-                            console.log("no more image");
                         }
                     })
                     .catch((err) => {
@@ -125,7 +100,6 @@
 
             deleteImage: function () {
                 var self = this;
-                console.log("deleted");
                 this.images = this.images.filter(function (image) {
                     return image.id != self.currentImgId;
                 });
