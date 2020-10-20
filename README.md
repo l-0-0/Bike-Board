@@ -2,7 +2,7 @@
 
 ## Description
 
-Bike-Board is a single-page application website to collect photos of bikes in real world settings. Users can upload photos, delete them and put comments on other photos. 1
+Bike-Board is a single-page application website to collect photos of bikes in real world settings. Users can upload photos, delete them and put comments on other photos.
 
 ## Technology
 
