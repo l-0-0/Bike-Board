@@ -113,17 +113,20 @@ img {
 
     transition: 0.5s;
     font-family: "Roboto", sans-serif;
-    overflow: hidden;
+    overflow-y: scroll;
 }
 .inside-part {
     position: relative;
-    height: 95%;
+    height: fit-content;
     width: 60%;
     background-color: #ece8ef;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
+    margin-top: 20% !important;
+    margin-bottom: 2%;
+    padding-bottom: 5%;
 }
 
 .comment-section {
